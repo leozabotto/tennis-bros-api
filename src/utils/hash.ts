@@ -6,3 +6,8 @@ export function transformToHash(value: string): string {
 
   return hash;
 }
+
+export function compareHash(value: string, hash: string) {
+  const isEqual = bcrypt.compareSync(value, hash);
+  return isEqual;
+}

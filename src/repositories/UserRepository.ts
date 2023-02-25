@@ -9,9 +9,6 @@ export default class UserRepository {
       where: {
         email,
       },
-      select: {
-        id: true,
-      },
     });
 
     return user;
@@ -22,9 +19,6 @@ export default class UserRepository {
       where: {
         phoneNumber,
       },
-      select: {
-        id: true,
-      },
     });
 
     return user;
@@ -34,9 +28,6 @@ export default class UserRepository {
     const user = await prisma.user.findUnique({
       where: {
         userName,
-      },
-      select: {
-        id: true,
       },
     });
 
