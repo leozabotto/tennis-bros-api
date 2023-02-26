@@ -4,6 +4,16 @@ import { IRequestCreateUser, IUser } from '../interfaces/UserInterfaces';
 const prisma = new PrismaClient();
 
 export default class UserRepository {
+  async findById(id: number) {
+    const user = await prisma.user.findUnique({
+      where: {
+        id,
+      },
+    });
+
+    return user;
+  }
+
   async findByEmail(email: string) {
     const user = await prisma.user.findUnique({
       where: {

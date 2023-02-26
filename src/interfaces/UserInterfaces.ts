@@ -19,3 +19,7 @@ export interface IRequestAuthUser {
   user: string;
   password: string;
 }
+
+export interface IRequestFindUser {
+  id?: number;
+}
