@@ -108,7 +108,7 @@ export default class CreateUserService implements ICreateUserService {
         throw new Exception({
           status: 'validation',
           code: 109,
-          message: 'userName already in use',
+          message: 'phoneNumber already in use',
         });
       default:
         return true;
