@@ -17,7 +17,7 @@ interface IAuthUserService {
 const defaultAuthException = new Exception({
   status: 'error',
   message: 'invalid e-mail or password',
-  code: 100,
+  code: 102,
 });
 
 export default class AuthUserService implements IAuthUserService {
