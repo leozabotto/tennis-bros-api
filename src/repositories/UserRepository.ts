@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import { IRequestCreateUser, IUser } from '../interfaces/UserInterfaces';
+import { IRequestCreateUser, User } from '../interfaces/UserInterfaces';
 
 const prisma = new PrismaClient();
 
@@ -24,7 +24,7 @@ export default class UserRepository {
     return user;
   }
 
-  async findByPhoneNumber(phoneNumber: string): Promise<IUser | null> {
+  async findByPhoneNumber(phoneNumber: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
       where: {
         phoneNumber,
@@ -34,7 +34,7 @@ export default class UserRepository {
     return user;
   }
 
-  async findByUserName(userName: string): Promise<IUser | null> {
+  async findByUserName(userName: string): Promise<User | null> {
     const user = await prisma.user.findUnique({
       where: {
         userName,
@@ -44,7 +44,7 @@ export default class UserRepository {
     return user;
   }
 
-  async create(params: IRequestCreateUser): Promise<IUser> {
+  async create(params: IRequestCreateUser): Promise<User> {
     const user = await prisma.user.create({
       data: {
         email: params.email,

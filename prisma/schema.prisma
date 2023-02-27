@@ -7,6 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum InviteStatus {
+  Aberto
+  Finalizado
+}
+
+enum InviteInteractionType {
+  Aceito
+  Rejeitado
+}
 model User {
   id    Int    @id @default(autoincrement())
   name  String
@@ -16,4 +25,39 @@ model User {
   password String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Invites Invite[]
+  InviteInterfactions InviteInteraction[]
+
+}
+
+model Invite {
+  id  Int @id @default(autoincrement())
+  date DateTime @db.Date
+  time DateTime @db.Time()
+  street String
+  addressNumber String
+  neighborhood String
+  city String
+  state String
+  complement String
+  zipcode String
+  status InviteStatus
+  createdAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user   User @relation(fields: [userId], references: [id])
+  userId Int
+  Interactions InviteInteraction[]
+}
+
+model InviteInteraction {
+  id  Int @id @default(autoincrement())
+  type InviteInteractionType
+  createdAt  DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Invite Invite @relation(fields: [inviteId], references: [id])
+  inviteId Int
+  User User @relation(fields: [userId], references: [id])
+  userId Int
+
+  @@map("invite_interactions")
 }

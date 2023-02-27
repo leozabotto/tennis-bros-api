@@ -6,7 +6,7 @@ import generateToken from '../../utils/jwt';
 
 import UserRepository from '../../repositories/UserRepository';
 
-import { IRequestAuthUser, IUser } from '../../interfaces/UserInterfaces';
+import { IRequestAuthUser, User } from '../../interfaces/UserInterfaces';
 
 interface IAuthUserService {
   userRepository: UserRepository;
@@ -50,7 +50,7 @@ export default class AuthUserService implements IAuthUserService {
   async execute({ user, password }: IRequestAuthUser) {
     this.validate({ user, password });
 
-    let foundUser: null | IUser = null;
+    let foundUser: null | User = null;
 
     const userParamType = validator.isEmail(user) ? 'email' : 'userName';
 

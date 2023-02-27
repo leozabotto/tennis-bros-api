@@ -5,12 +5,12 @@ import { transformToHash } from '../../utils/hash';
 
 import UserRepository from '../../repositories/UserRepository';
 
-import { IRequestCreateUser, IUser } from '../../interfaces/UserInterfaces';
+import { IRequestCreateUser, User } from '../../interfaces/UserInterfaces';
 
 interface ICreateUserService {
   userRepository: UserRepository;
   validate: (params: IRequestCreateUser) => Promise<boolean>;
-  execute: (params: IRequestCreateUser) => Promise<IUser>;
+  execute: (params: IRequestCreateUser) => Promise<User>;
   isEmailAlreadyInUse: (email: string) => Promise<boolean>;
   isUserNameAlreadyInUse: (userName: string) => Promise<boolean>;
   isPhoneNumberAlreadyInUse: (userName: string) => Promise<boolean>;

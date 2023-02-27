@@ -3,12 +3,12 @@ import Exception from '../../errors/Exception';
 
 import UserRepository from '../../repositories/UserRepository';
 
-import { IRequestFindUser, IUser } from '../../interfaces/UserInterfaces';
+import { IRequestFindUser, User } from '../../interfaces/UserInterfaces';
 
 interface IFindUserService {
   userRepository: UserRepository;
   validate: (params: IRequestFindUser) => boolean;
-  execute: (params: IRequestFindUser) => Promise<IUser>;
+  execute: (params: IRequestFindUser) => Promise<User>;
 }
 
 export default class AuthUserService implements IFindUserService {
@@ -34,7 +34,7 @@ export default class AuthUserService implements IFindUserService {
   async execute({ id }: IRequestFindUser) {
     this.validate({ id });
 
-    let foundUser = (await this.userRepository.findById(Number(id))) as IUser;
+    let foundUser = (await this.userRepository.findById(Number(id))) as User;
 
     if (!foundUser)
       throw new Exception({
