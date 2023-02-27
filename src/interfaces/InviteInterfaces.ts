@@ -5,7 +5,7 @@ export type InviteStatus = 'Aberto' | 'Finalizado';
 
 export interface Invite {
   id?: number;
-  date?: string;
+  date?: Date;
   time?: string;
   street?: string;
   addressNumber?: string;
@@ -15,8 +15,8 @@ export interface Invite {
   complement?: string;
   zipcode?: string;
   status?: InviteStatus;
-  createdAt?: string;
-  updatedAt?: string;
+  createdAt?: Date;
+  updatedAt?: Date;
   User?: User;
   userId?: number;
   Interactions?: InviteInteraction[];

@@ -1,4 +1,4 @@
-/*import validator from 'validator';
+import validator from 'validator';
 import Exception from '../../errors/Exception';
 
 import {
@@ -83,4 +83,4 @@ export default class CreateInviteService implements ICreateInviteService {
 
     return createdInvite;
   }
-}*/
+}
