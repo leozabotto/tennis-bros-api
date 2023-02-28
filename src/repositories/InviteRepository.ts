@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { InviteInteraction, PrismaClient } from '@prisma/client';
 import { Invite, InviteStatus } from '../interfaces/InviteInterfaces';
 
 const prisma = new PrismaClient();
@@ -44,6 +44,16 @@ export default class InviteRepository {
     });
 
     return updatedInvite;
+  }
+
+  async deleteInvite(id: number): Promise<Invite | null> {
+    const deletedInvite = await prisma.invite.delete({
+      where: {
+        id: Number(id) as number,
+      },
+    });
+
+    return deletedInvite;
   }
 
   async findById(id: number): Promise<Invite | null> {

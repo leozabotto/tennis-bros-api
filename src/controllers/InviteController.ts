@@ -4,8 +4,10 @@ import {
   IRequestUpdateInvite,
 } from '../interfaces/InviteInterfaces';
 
+import FindInviteService from '../services/Invite/FindInviteService';
 import CreateInviteService from '../services/Invite/CreateInviteService';
 import UpdateInviteService from '../services/Invite/UpdateInviteService';
+import DeleteInviteService from '../services/Invite/DeleteInviteService';
 
 export default class UserController {
   async create(req: Request, res: Response) {
@@ -28,5 +30,23 @@ export default class UserController {
     );
 
     res.json(updatedInvite);
+  }
+
+  async find(req: Request, res: Response) {
+    const { id }: { id?: number } = req.params;
+
+    const findInviteService = new FindInviteService();
+    const invite = await findInviteService.execute(id as number);
+
+    res.json(invite);
+  }
+
+  async delete(req: Request, res: Response) {
+    const { id }: { id?: number } = req.params;
+
+    const deleteInviteService = new DeleteInviteService();
+    const deleteService = await deleteInviteService.execute(id as number);
+
+    res.json(deleteService);
   }
 }
