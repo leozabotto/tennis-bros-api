@@ -25,3 +25,7 @@ export interface Invite {
 export interface IRequestCreateInvite {
   invite: Invite;
 }
+
+export interface IRequestUpdateInvite {
+  invite: Invite;
+}

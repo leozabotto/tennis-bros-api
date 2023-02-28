@@ -23,4 +23,36 @@ export default class InviteRepository {
 
     return createdInvite;
   }
+
+  async update(invite: Invite, id: number): Promise<Invite> {
+    const updatedInvite = await prisma.invite.update({
+      where: {
+        id: id as number,
+      },
+      data: {
+        date: new Date(invite.date as Date),
+        time: invite.time as string,
+        street: invite.street as string,
+        addressNumber: invite.addressNumber as string,
+        neighborhood: invite.neighborhood as string,
+        city: invite.city as string,
+        state: invite.state as string,
+        complement: invite.complement as string,
+        zipcode: invite.zipcode as string,
+        status: invite.status as InviteStatus,
+      },
+    });
+
+    return updatedInvite;
+  }
+
+  async findById(id: number): Promise<Invite | null> {
+    const invite = await prisma.invite.findUnique({
+      where: {
+        id: Number(id) as number,
+      },
+    });
+
+    return invite;
+  }
 }

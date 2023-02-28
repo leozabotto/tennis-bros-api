@@ -1,27 +1,42 @@
 import Exception from '../../errors/Exception';
-
-import {
-  Invite,
-  IRequestCreateInvite,
-} from '../../interfaces/InviteInterfaces';
+import { Invite } from '../../interfaces/InviteInterfaces';
 
 import InviteRepository from '../../repositories/InviteRepository';
 
-interface ICreateInviteService {
+interface IUpdateInviteService {
   inviteRepository: InviteRepository;
-  validate: (params: IRequestCreateInvite) => Promise<boolean>;
-  execute: (params: IRequestCreateInvite) => Promise<Invite>;
+  validate: (invite: Invite, id: number) => Promise<boolean>;
+  execute: (invite: Invite, id: number) => Promise<Invite>;
+  inviteExists: (id: number) => Promise<boolean>;
 }
 
-export default class CreateInviteService implements ICreateInviteService {
+export default class UpdateInviteService implements IUpdateInviteService {
   public inviteRepository;
 
   constructor() {
     this.inviteRepository = new InviteRepository();
   }
 
-  async validate({ invite }: IRequestCreateInvite) {
+  async inviteExists(id: number): Promise<boolean> {
+    const invite = await this.inviteRepository.findById(id);
+    if (invite) return true;
+    return false;
+  }
+
+  async validate(invite: Invite, id: number) {
     switch (true) {
+      case !id:
+        throw new Exception({
+          status: 'validation',
+          code: 108,
+          message: 'id is required',
+        });
+      case !(await this.inviteExists(id)):
+        throw new Exception({
+          status: 'validation',
+          code: 109,
+          message: 'invite not found',
+        });
       case !invite.date:
         throw new Exception({
           status: 'validation',
@@ -75,8 +90,8 @@ export default class CreateInviteService implements ICreateInviteService {
     }
   }
 
-  async execute({ invite }: IRequestCreateInvite) {
-    await this.validate({ invite });
+  async execute(invite: Invite, id: number) {
+    await this.validate(invite, id);
 
     const createdInvite = await this.inviteRepository.create(invite);
 

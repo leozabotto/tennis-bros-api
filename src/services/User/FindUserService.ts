@@ -1,4 +1,3 @@
-import validator from 'validator';
 import Exception from '../../errors/Exception';
 
 import UserRepository from '../../repositories/UserRepository';
@@ -34,7 +33,7 @@ export default class AuthUserService implements IFindUserService {
   async execute({ id }: IRequestFindUser) {
     this.validate({ id });
 
-    let foundUser = (await this.userRepository.findById(Number(id))) as User;
+    const foundUser = (await this.userRepository.findById(Number(id))) as User;
 
     if (!foundUser)
       throw new Exception({

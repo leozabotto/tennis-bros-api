@@ -22,6 +22,7 @@ export default class CreateUserService implements ICreateUserService {
   constructor() {
     this.userRepository = new UserRepository();
   }
+
   async isEmailAlreadyInUse(email: string): Promise<boolean> {
     const user = await this.userRepository.findByEmail(email);
     if (user) return true;
